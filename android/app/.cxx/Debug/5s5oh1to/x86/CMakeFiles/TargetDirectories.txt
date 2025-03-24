@@ -1,0 +1,2 @@
+/Users/joshikaalaparthi/Desktop/MAD/signup_page/android/app/.cxx/Debug/5s5oh1to/x86/CMakeFiles/edit_cache.dir
+/Users/joshikaalaparthi/Desktop/MAD/signup_page/android/app/.cxx/Debug/5s5oh1to/x86/CMakeFiles/rebuild_cache.dir
