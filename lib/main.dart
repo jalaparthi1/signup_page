@@ -174,10 +174,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home Screen")),
+      appBar: AppBar(title: Text("Confirmation Screen")),
       body: Center(
         child: Text(
-          'Welcome to the Home Screen!',
+          'Form Submission Successfull!',
           style: TextStyle(fontSize: 24),
         ),
       ),
