@@ -26,6 +26,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController(); 
 
   // For Date of Birth (DOB)
   DateTime? _dob;
@@ -34,7 +35,7 @@ class _SignupPageState extends State<SignupPage> {
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       // If form is valid, navigate to Home Screen
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
       );
@@ -57,6 +58,7 @@ class _SignupPageState extends State<SignupPage> {
     if (selectedDate != null && selectedDate != _dob) {
       setState(() {
         _dob = selectedDate;
+        _dobController.text = '${selectedDate.toLocal()}'.split(' ')[0];
       });
     }
   }
@@ -136,6 +138,7 @@ class _SignupPageState extends State<SignupPage> {
                 onTap: () => _selectDOB(context),
                 child: AbsorbPointer(
                   child: TextFormField(
+                    controller: _dobController,
                     decoration: InputDecoration(
                       labelText: 'Date of Birth',
                       hintText: _dob == null
