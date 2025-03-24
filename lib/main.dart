@@ -23,8 +23,12 @@ class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
 
   // Controllers for form fields
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // For Date of Birth (DOB)
+  DateTime? _dob;
 
   // Form submission handler
   void _submitForm() {
@@ -42,6 +46,21 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+  // Date Picker for DOB field
+  Future<void> _selectDOB(BuildContext context) async {
+    final DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: _dob ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (selectedDate != null && selectedDate != _dob) {
+      setState(() {
+        _dob = selectedDate;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +74,22 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Name input field
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Full Name',
+                  hintText: 'Enter your full name',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your full name';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+
               // Email input field
               TextFormField(
                 controller: _emailController,
@@ -93,6 +128,29 @@ class _SignupPageState extends State<SignupPage> {
                   }
                   return null;
                 },
+              ),
+              SizedBox(height: 16),
+
+              // Date of Birth (DOB) input field
+              GestureDetector(
+                onTap: () => _selectDOB(context),
+                child: AbsorbPointer(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Date of Birth',
+                      hintText: _dob == null
+                          ? 'Select your date of birth'
+                          : '${_dob?.toLocal()}'
+                              .split(' ')[0], // Format the date
+                    ),
+                    validator: (value) {
+                      if (_dob == null) {
+                        return 'Please select your date of birth';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
               ),
               SizedBox(height: 32),
 
